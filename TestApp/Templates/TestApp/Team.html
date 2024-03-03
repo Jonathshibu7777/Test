@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>Team Name</td>
+                <td><input type="text" name="TeamName" ></td>
+            </tr>
+            <tr>
+                <td>Flag</td>
+                <td><input type="file" name="Team_Photo" ></td>
+            </tr>
+            <tr>
+                <td>Team Password</td>
+                <td>
+                    <input type="text" name="TeamPassword"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnsubmit" value="Submit">
+                    <input type="reset"  name="btnreset"  value="Reset">
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>SINo</td>
+                <td>Team_Name</td>
+                <td>Flag</td>
+                <td>Team_Password</td>
+            </tr>
+            {% for i in Teamdata %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Team_Name}}</td>
+            <td><img src="{{i.Team_Photo.url}}" width="180" height="150"></td>
+            <td>{{i.Team_Password}}</td>
+            <td><a href="{% url 'webclass:delete_Team' i.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player_Detail</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <td>Player Name</td>
+                <td><input type="text" name="PlayerName" ></td>
+            </tr>
+            <tr>
+                <td>Player_Category</td>
+                <td><select name="sel_category" id="sel_category">
+                    <option value="">...Select...</option>
+                    {% for i in Player_Categorydata %} 
+                    <option value="{{i.id}}">{{i.Player_Category_Name}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Player DOB</td>
+                <td><input type="date" name="DOB" ></td>
+            </tr>
+            <tr>
+                <td>Player_Team</td>
+                <td><select name="sel_team" id="sel_team">
+                    <option value="">...Select...</option>
+                    {% for i in Player_Teamdata %} 
+                    <option value="{{i.id}}">{{i.Player_Team}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Player_Photo</td>
+                <td><input type="file" name="Player_Photo" ></td>
+            </tr>
+            <tr>
+                <td>Player Password</td>
+                <td><input type="text" name="Player_Password" ></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnsubmit" value="Submit">
+                    <input type="reset"  name="btnreset"  value="Reset">
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>SINo</td>
+                <td>Player_Name</td>
+                <td>Player_Category</td>
+                <td>Player_DOB</td>
+                <td>Player_Team</td>
+                <td>Player_Photo</td>
+                <td>Player_Password</td>
+            </tr>
+            {% for i in playerData %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Player_Name}}</td>
+            <td>{{i.Player_Category}}</td>
+            <td>{{i.Player_DOB}}</td>
+            <td>{{i.Player_Team}}</td>
+            <td><img src="{{i.Team_Photo.url}}" width="180" height="150"></td>
+            <td>{{i.Team_Password}}</td>
+            <td><a href="{% url 'webclass:delete_Player_Category' i.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </form>
+</body>
+</html>
